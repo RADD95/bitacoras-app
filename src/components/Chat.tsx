@@ -8,7 +8,7 @@ const socket = io('http://localhost:3000');
 
 const Chat = () => {
   const { fichaId } = useParams();
-  const { user } = useAuth();
+  useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [mensajes, setMensajes] = useState<any[]>([]);
   const [mensaje, setMensaje] = useState('');

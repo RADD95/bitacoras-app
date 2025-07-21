@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 
