@@ -13,6 +13,13 @@ dist-ssr
 *.local
 dist/
 .env
+node_modules/
+dist/
+backend/node_modules/
+backend/dist/
+.env
+backend/.env
+backend/uploads/
 
 # Editor directories and files
 .vscode/*
