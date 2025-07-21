@@ -1,25 +1,25 @@
-import './index.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Registro from './pages/Registro';
+import Fichas from './pages/Fichas';
+import Chat from './pages/Chat';
+import Calendario from './pages/Calendario';
 
-function App() {
+const App = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600 mb-6">Bienvenido a Bitácoras</h1>
-      <div className="space-x-4">
-        <button
-          className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
-          onClick={() => alert('Crear nueva ficha')}
-        >
-          Crear Ficha
-        </button>
-        <button
-          className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
-          onClick={() => alert('Ir al formulario de registro')}
-        >
-          Registrarse
-        </button>
+    <BrowserRouter>
+      <div className="min-h-screen bg-gray-100">
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Registro />} />
+          <Route path="/fichas" element={<Fichas />} />
+          <Route path="/chat/:fichaId" element={<Chat fichaId="exampleFichaId" />} />
+          <Route path="/calendario" element={<Calendario />} />
+          <Route path="/" element={<Login />} />
+        </Routes>
       </div>
-    </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
