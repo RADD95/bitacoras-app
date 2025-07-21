@@ -7,6 +7,8 @@ import usuarioRoutes from './routes/usuario';
 import fichaRoutes from './routes/ficha';
 import asignacionRoutes from './routes/asignacion';
 import bitacoraRoutes from './routes/bitacora';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const server = createServer(app);
@@ -31,7 +33,7 @@ io.on('connection', (socket) => {
   });
 });
 
-mongoose.connect('mongodb://localhost:27017/bitacoras')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/bitacoras')
   .then(() => console.log('Conectado a MongoDB'))
   .catch((err) => console.error('Error MongoDB:', err));
 
