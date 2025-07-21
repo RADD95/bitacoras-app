@@ -3,12 +3,14 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import routes from './routes';
 
 dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer, {
+
+export const io = new Server(httpServer, {
   cors: {
     origin: 'http://localhost:5173',
     methods: ['GET', 'POST'],
@@ -17,6 +19,9 @@ const io = new Server(httpServer, {
 
 const port = process.env.PORT || 3000;
 const mongoUri = process.env.MONGODB_URI || '';
+
+app.use(express.json()); // Parsear JSON
+app.use('/api', routes); // Usar rutas con prefijo /api
 
 mongoose.connect(mongoUri)
   .then(() => console.log('Conectado a MongoDB'))
