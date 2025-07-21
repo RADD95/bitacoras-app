@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, setUser } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setUser(null);
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   return (
@@ -19,17 +19,29 @@ const Navbar = () => {
             <>
               <Link to="/configuracion" className="flex items-center gap-2">
                 <img
-                  src={user.fotoPerfil || 'https://via.placeholder.com/32'}
+                  src={
+                    user.fotoPerfil
+                      ? `http://localhost:3000${user.fotoPerfil}`
+                      : "https://via.placeholder.com/32"
+                  }
                   alt="Perfil"
                   className="w-8 h-8 rounded-full"
                 />
-                <span className="hover:underline">{user.nombre} ({user.rol})</span>
+                <span className="hover:underline">
+                  {user.nombre} ({user.rol})
+                </span>
               </Link>
-              <Link to="/fichas" className="hover:underline">Fichas</Link>
-              <button onClick={handleLogout} className="hover:underline">Cerrar Sesión</button>
+              <Link to="/fichas" className="hover:underline">
+                Fichas
+              </Link>
+              <button onClick={handleLogout} className="hover:underline">
+                Cerrar Sesión
+              </button>
             </>
           ) : (
-            <Link to="/" className="hover:underline">Iniciar Sesión</Link>
+            <Link to="/" className="hover:underline">
+              Iniciar Sesión
+            </Link>
           )}
         </div>
       </div>

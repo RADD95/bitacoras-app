@@ -10,8 +10,6 @@ const Fichas = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [liderId, setLiderId] = useState('');
-  const [maestroId, setMaestroId] = useState('');
 
   const { data: fichas, isLoading } = useQuery({
     queryKey: ['fichas', user?.rol],
@@ -20,15 +18,13 @@ const Fichas = () => {
   });
 
   const fichaMutation = useMutation({
-    mutationFn: (data: { nombre: string; descripcion: string; lider_id: string; maestro_id: string }) =>
+    mutationFn: (data: { nombre: string; descripcion: string; maestro_id: string }) =>
       api.post('/fichas', data).then((res) => res.data),
     onSuccess: (data) => {
       alert('Ficha creada');
       setIsModalOpen(false);
       setNombre('');
       setDescripcion('');
-      setLiderId('');
-      setMaestroId('');
       navigate(`/ficha/${data._id}`);
     },
     onError: () => alert('Error al crear ficha'),
@@ -36,7 +32,8 @@ const Fichas = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fichaMutation.mutate({ nombre, descripcion, lider_id: liderId, maestro_id: maestroId });
+    if (!user) return;
+    fichaMutation.mutate({ nombre, descripcion, maestro_id: user.id });
   };
 
   if (isLoading) return <div className="text-center p-4">Cargando...</div>;
@@ -77,20 +74,6 @@ const Fichas = () => {
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 placeholder="Descripción"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <input
-                type="text"
-                value={liderId}
-                onChange={(e) => setLiderId(e.target.value)}
-                placeholder="ID del líder"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <input
-                type="text"
-                value={maestroId}
-                onChange={(e) => setMaestroId(e.target.value)}
-                placeholder="ID del maestro"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <div className="flex gap-2">

@@ -40,8 +40,8 @@ router.post('/', verifyToken, async (req: any, res) => {
     if (!['maestro', 'lider'].includes(req.user.rol)) {
       return res.status(403).json({ error: 'No autorizado' });
     }
-    const { nombre, descripcion, lider_id, maestro_id } = req.body;
-    const ficha = new Ficha({ nombre, descripcion, lider_id, maestro_id, estudiantes: [], mensajes: [] });
+    const { nombre, descripcion, maestro_id } = req.body;
+    const ficha = new Ficha({ nombre, descripcion, maestro_id, estudiantes: [], mensajes: [] });
     await ficha.save();
     io.emit('notificacion', `Nueva ficha creada: ${nombre}`);
     res.status(201).json(ficha);
