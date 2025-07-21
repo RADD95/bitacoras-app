@@ -1,11 +1,12 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
-const bitacoraSchema = new Schema({
-  estudiante_original_id: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
-  estudiante_subida_id: { type: Schema.Types.ObjectId, ref: 'Usuario' },
-  fecha: { type: Date, required: true },
-  archivo_url: { type: String },
-  motivo_reasignacion: { type: String },
-}, { timestamps: true });
+const bitacoraSchema = new mongoose.Schema({
+  ficha_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Ficha', required: true },
+  usuario_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
+  titulo: { type: String, required: true },
+  contenido: { type: String, required: true },
+  fecha: { type: String, required: true }, // Formato: YYYY-MM-DD
+  archivo: { type: String },
+});
 
 export default mongoose.model('Bitacora', bitacoraSchema);

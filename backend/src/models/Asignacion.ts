@@ -1,10 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
-const asignacionSchema = new Schema({
-  estudiante_id: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
-  fecha: { type: Date, required: true },
-  ficha_id: { type: Schema.Types.ObjectId, ref: 'Ficha', required: true },
-  activo: { type: Boolean, default: false },
-}, { timestamps: true });
+const asignacionSchema = new mongoose.Schema({
+  ficha_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Ficha', required: true },
+  estudiante_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
+  fecha: { type: String, required: true }, // Formato: YYYY-MM-DD
+});
 
 export default mongoose.model('Asignacion', asignacionSchema);

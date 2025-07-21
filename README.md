@@ -1,69 +1,99 @@
-# React + TypeScript + Vite
+Bitácoras
+Aplicación web para gestionar bitácoras de estudiantes, con fichas, calendarios, y chat desplegable.
+Tecnologías
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend: React, TypeScript, Vite, Tailwind CSS v4.0 (@tailwindcss/vite), React Query, React Router, FullCalendar, Socket.IO Client
+Backend: Node.js, Express, MongoDB, Socket.IO, Multer
+Otros: JWT para autenticación, bcrypt para contraseñas
 
-Currently, two official plugins are available:
+Configuración del proyecto
+Prerrequisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Node.js (v18 o superior)
+MongoDB (local o en la nube)
+Git
 
-## Expanding the ESLint configuration
+Instalación
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Clona el repositorio:git clone <URL_DEL_REPOSITORIO>
+cd bitacoras-app
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Instala dependencias del frontend:npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+
+Instala dependencias del backend:cd backend
+npm install
+
+
+Crea un archivo .env en backend:PORT=3000
+MONGODB_URI=mongodb://localhost:27017/bitacoras
+JWT_SECRET=secreto
+
+
+Inicia MongoDB:mongod
+
+
+Inicia el backend:cd backend
+npm run dev
+
+
+Inicia el frontend:cd ..
+npm run dev
+
+
+
+Configuración de Tailwind CSS v4.0
+Tailwind CSS v4.0 está integrado con Vite usando @tailwindcss/vite:
+
+Archivo src/index.css:@import "tailwindcss";
+
+
+Archivo vite.config.ts:import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  server: {
+    port: 5173,
   },
-])
-```
+});
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Estructura del proyecto
+bitacoras-app/
+├── backend/
+│   ├── src/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── middleware/
+│   │   ├── index.ts
+│   ├── package.json
+├── src/
+│   ├── api/
+│   ├── components/
+│   ├── pages/
+│   ├── context/
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── index.css
+├── package.json
+├── vite.config.ts
+├── README.md
+
+Uso
+
+Abre http://localhost:5173/ para ver la página principal (login/registro).
+Regístrate como estudiante o inicia sesión.
+Navega a /fichas para ver tus fichas.
+Accede a una ficha (/ficha/:fichaId) para ver el calendario, estudiantes, y chat desplegable.
+Sube bitácoras en tus días asignados desde el calendario.
+Configura tu perfil en /configuracion.
+
+Notas
+
+Solo estudiantes pueden registrarse desde la interfaz.
+Usa Postman para probar endpoints (/api/usuarios, /api/fichas, etc.).
+El chat es desplegable (tipo Facebook) y soporta mensajes e imágenes.

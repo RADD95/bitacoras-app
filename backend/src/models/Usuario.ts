@@ -1,15 +1,12 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
-const usuarioSchema = new Schema({
+const usuarioSchema = new mongoose.Schema({
   nombre: { type: String, required: true },
-  cedula: { type: String, unique: true },
+  cedula: { type: String, required: true, unique: true },
   correo: { type: String, required: true, unique: true },
-  contrasena: { type: String },
-  foto_perfil_url: { type: String },
-  rol: { type: String, enum: ['estudiante', 'lider', 'maestro'], required: true },
-  ficha_id: { type: Schema.Types.ObjectId, ref: 'Ficha' },
-  activo: { type: Boolean, default: true },
-  estado: { type: String, enum: ['pendiente', 'activo'], default: 'pendiente' },
-}, { timestamps: true });
+  contrasena: { type: String, required: true },
+  rol: { type: String, enum: ['estudiante', 'maestro', 'lider'], default: 'estudiante' },
+  fotoPerfil: { type: String },
+});
 
 export default mongoose.model('Usuario', usuarioSchema);
