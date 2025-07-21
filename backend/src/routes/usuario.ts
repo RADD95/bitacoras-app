@@ -28,12 +28,17 @@ router.post('/registro', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   try {
-    const { correo, contrasena } = req.body;
-    const usuario = await Usuario.findOne({ correo });
+    const { identificador, contrasena } = req.body; // Cambiamos 'correo' por 'identificador'
+    const usuario = await Usuario.findOne({
+      $or: [{ correo: identificador }, { cedula: identificador }],
+    });
     if (!usuario) {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
-    const isMatch = await bcrypt.compare(contrasena, usuario.contrasena);
+    if (!contrasena || typeof usuario.contrasena !== 'string') {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+    const isMatch = await bcrypt.compare(contrasena, usuario.contrasena as string);
     if (!isMatch) {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }

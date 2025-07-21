@@ -3,11 +3,11 @@ import { useMutation } from '@tanstack/react-query';
 import api from '../api/axios';
 
 const Login = () => {
-  const [correo, setCorreo] = useState('');
+  const [identificador, setIdentificador] = useState(''); // Cambiamos 'correo' por 'identificador'
   const [contrasena, setContrasena] = useState('');
 
   const loginMutation = useMutation({
-    mutationFn: (data: { correo: string; contrasena: string }) =>
+    mutationFn: (data: { identificador: string; contrasena: string }) =>
       api.post('/usuarios/login', data).then((res) => res.data),
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
@@ -17,7 +17,7 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    loginMutation.mutate({ correo, contrasena });
+    loginMutation.mutate({ identificador, contrasena });
   };
 
   return (
@@ -25,10 +25,10 @@ const Login = () => {
       <h2 className="text-[24px] font-bold mb-4">Iniciar Sesión</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
-          type="email"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-          placeholder="Correo"
+          type="text" // Cambiamos 'email' por 'text' para aceptar cédula o correo
+          value={identificador}
+          onChange={(e) => setIdentificador(e.target.value)}
+          placeholder="Cédula o Correo"
           className="w-full p-2 border border-gray-300 rounded"
         />
         <input
@@ -42,6 +42,9 @@ const Login = () => {
           Iniciar Sesión
         </button>
       </form>
+      <p className="mt-4 text-center">
+        ¿No tienes cuenta? <a href="/registro" className="text-blue-500 hover:underline">Regístrate</a>
+      </p>
     </div>
   );
 };
