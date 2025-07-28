@@ -43,46 +43,6 @@ npm run dev
 
 
 
-Configuración de Tailwind CSS v4.0
-Tailwind CSS v4.0 está integrado con Vite usando @tailwindcss/vite:
-
-Archivo src/index.css:@import "tailwindcss";
-
-
-Archivo vite.config.ts:import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  server: {
-    port: 5173,
-  },
-});
-
-
-
-Estructura del proyecto
-bitacoras-app/
-├── backend/
-│   ├── src/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── middleware/
-│   │   ├── index.ts
-│   ├── package.json
-├── src/
-│   ├── api/
-│   ├── components/
-│   ├── pages/
-│   ├── context/
-│   ├── App.tsx
-│   ├── main.tsx
-│   ├── index.css
-├── package.json
-├── vite.config.ts
-├── README.md
-
 Uso
 
 Abre http://localhost:5173/ para ver la página principal (login/registro).
